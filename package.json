@@ -1,0 +1,29 @@
+{
+  "name": "showapirequest_nodejs",
+  "version": "1.0.0",
+  "description": "NodeJs SDK V8 Promise version for showapi interface",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/showapi-public/showapi_sdk_nodeJS.git"
+  },
+  "keywords": [
+    "showapi",
+    "sdk"
+  ],
+  "author": "showapi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/showapi-public/showapi_sdk_nodeJS/issues"
+  },
+  "homepage": "https://github.com/showapi-public/showapi_sdk_nodeJS#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "crypto": "^1.0.1",
+    "form-data": "^3.0.0",
+    "mime-types": "^2.1.27"
+  }
+}
