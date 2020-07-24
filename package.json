@@ -1,14 +1,14 @@
 {
   "name": "showapirequest_nodejs",
   "version": "1.0.0",
-  "description": "NodeJs SDK V8 Promise version for showapi interface",
+  "description": "NodeJs SDK ES6 Promise version for showapi API interface",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/showapi-public/showapi_sdk_nodeJS.git"
+    "url": "git+https://github.com/showapi-public/showapirequest_nodejs.git"
   },
   "keywords": [
     "showapi",
