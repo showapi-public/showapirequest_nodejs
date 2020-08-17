@@ -26,8 +26,15 @@ function ShowapiSDK(url, appId, sign, timeout = 30000) {
 
 ShowapiSDK.prototype = {
   /**
+   * 使用本地时间取到时间戳
+   */
+  getTimpstamp(){
+    return createTimestamp()
+  },
+  /**
    * 设置超时，针对ShowapiSDK对象生命周期有效
    * @param {int} timeout 超时毫秒
+   * @returns this
    */
   setTimeout(timeout = 30000) {
     this.timeout = timeout
@@ -92,7 +99,8 @@ ShowapiSDK.prototype = {
 async function extractParam( showapiSDK,isPost=false){
   const params={
     showapi_appid:showapiSDK.appId,
-    showapi_timestamp:createTimestamp()
+    //不使用时间戳避免用户本地时间或时期不对导致问题
+    // showapi_timestamp:createTimestamp()
   }
   Object.assign(params,showapiSDK.textParas)
   showapiSDK.textParas={}
