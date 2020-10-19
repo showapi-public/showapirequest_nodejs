@@ -1,6 +1,6 @@
 {
   "name": "showapirequest_nodejs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "NodeJs SDK ES6 Promise version for showapi API interface",
   "main": "index.js",
   "scripts": {
