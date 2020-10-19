@@ -78,7 +78,10 @@ ShowapiSDK.prototype = {
   async post() {
     const form= await extractParam(this,true)
     return axios.post(this.url,form,{
-      headers:form.getHeaders(),
+      headers:{
+        ...form.getHeaders(),
+        "Content-Length": form.getLengthSync()
+    },
       timeout:this.timeout
     })
   },
