@@ -5,7 +5,9 @@ var crypto = require('crypto')
 const mime = require('mime-types') // 文件类型
 const FormData = require('form-data')
 
-const readFile = util.promisify(fs.readFile);
+const isNodeEnv=typeof window === 'undefined'
+
+const readFile = transformFileLoad()
 /**
  * ShowapiSDK构造方法
  * @constructor
@@ -78,10 +80,10 @@ ShowapiSDK.prototype = {
   async post() {
     const form= await extractParam(this,true)
     return axios.post(this.url,form,{
-      headers:{
+      headers:isNodeEnv?{
         ...form.getHeaders(),
         "Content-Length": form.getLengthSync()
-    },
+    }:{},
       timeout:this.timeout
     })
   },
@@ -128,8 +130,7 @@ async function extractParam( showapiSDK,isPost=false){
     }
     for(const[k,v] of Object.entries(showapiSDK.fileParas)){
       const f=await readFile(v)
-      const fileName=v.substring(v.lastIndexOf("/")+1,v.length)
-      form.append(k,f,fileName)
+      form.append(k,f,'uploadFile')
     }
     showapiSDK.fileParas={}
     return form
@@ -192,5 +193,27 @@ function getSortString(secret, obj) {
   )
 }
 
+function   transformFileLoad(){
+  
+  if(isNodeEnv){
+    const read=util.promisify(fs.readFile);
+    return  function(fileOrPath){
+      if(typeof fileOrPath == 'string'){
+        
+        return  read(fileOrPath)
+      }else{
+        return fileOrPath
+      }
+    }
+  }else{
+    return async function(fileOrPath){
+      if(typeof fileOrPath == 'string'){
+        throw new Error(`"${fileOrPath}"不是文件，浏览器端只能传入文件而非文件路径！`)
+      }else{
+        return fileOrPath
+      }
+    }
+  }
+}
 
 module.exports =ShowapiSDK

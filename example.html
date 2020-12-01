@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <title>Editor.md examples</title>
+    <script src="./bundle.js"></script>
+  </head>
+  <body>
+    <p>
+      选择二维码：<input
+        type="file"
+        onchange="test(this.files[0])"
+        placeholder="选择二维码识别网址"
+      />
+    </p>
+    <p >识别结果：</p>
+    <pre><code id="fileResult"></code></pre>
+    <hr>
+    <p>
+      <input id="urlInput" type="text" placeholder="输入网址生成二维码" />
+      <button onclick="toUrl()">提交</button>
+    </p>
+    <p >识别结果：</p>
+    <pre><code id="urlResult"></code></pre>
+    <script>
+
+      var sdk = new ShowapiRequest(
+        'https://route.showapi.com/887-2',
+        // 'https://route.showapi.com/887-1',
+        // 'https://route.showapi.com/887-4',
+        '', //替换为真实的appId
+        '' //替换为真实的密钥
+      )
+      var sdk2 = new ShowapiRequest(
+        // 'https://route.showapi.com/887-2',
+        'https://route.showapi.com/887-1',
+        // 'https://route.showapi.com/887-4',
+        '', //替换为真实的appId
+        '' //替换为真实的密钥
+      )
+      function toUrl() {
+        var url = document.getElementById('urlInput').value
+        sdk2
+          .addTextPara('content', url)
+          .post()
+          // .get()
+          .then((res) => {
+            console.info('#####result:', res.data)
+            document.getElementById("urlResult").innerText=JSON.stringify(res.data,null,2)
+            // console.info('#######axios all response:', res)
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+      }
+
+      function test(file) {
+        sdk
+          .addFilePara('img', file)
+          // .addTextPara('content','https://baidu.com')
+          // .addBase64Para('imgData','./static/xxx.png')
+          .post()
+          // .get()
+          .then((res) => {
+            console.info('#####result:', res.data)
+            document.getElementById("fileResult").innerText=JSON.stringify(res.data,null,2)
+            // console.info("#######axios all response:",res)
+          })
+          .catch((error) => {
+            console.error(error)
+          })
+      }
+    </script>
+  </body>
+</html>
