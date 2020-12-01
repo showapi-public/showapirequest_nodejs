@@ -30,7 +30,7 @@ const sdk = new ShowapiRequest(
 )
 
 sdk
-  .addFilePara('img', './static/xxx.png')//添加文件参数
+  .addFilePara('img', './static/xxx.png')//添加文件参数,
   .post()//post方式发送请求，返回axios.post()的Promise
   .then((res) => {
     console.info("#####result:",res.data)
@@ -118,8 +118,8 @@ sdk
     * [new ShowapiSDK(url, appId, sign, timeout)](#new_ShowapiSDK_new)
     * [.setTimeout(timeout)](#ShowapiSDK+setTimeout)
     * [.addTextPara(name, value)](#ShowapiSDK+addTextPara) ⇒
-    * [.addFilePara(name, filePath)](#ShowapiSDK+addFilePara) ⇒
-    * [.addBase64Para(name, filePath)](#ShowapiSDK+addBase64Para) ⇒
+    * [.addFilePara(name, fileOrPath)](#ShowapiSDK+addFilePara) ⇒
+    * [.addBase64Para(name, fileOrPath)](#ShowapiSDK+addBase64Para) ⇒
     * [.post()](#ShowapiSDK+post) ⇒ <code>Promise</code>
     * [.get()](#ShowapiSDK+get) ⇒ <code>Promise</code>
 
@@ -162,8 +162,9 @@ ShowapiSDK构造方法
 
 <a name="ShowapiSDK+addFilePara"></a>
 
-### showapiSDK.addFilePara(name, filePath) ⇒
+### showapiSDK.addFilePara(name, fileOrPath) ⇒
 添加一个文件参数，每次post后已添加参数会清空
+注意在浏览器端使用时只能使用上传input获取到文件后传入，不能使用文件路径作为参数。浏览器下无法使用fs包
 
 **Kind**: instance method of [<code>ShowapiSDK</code>](#ShowapiSDK)  
 **Returns**: this  
@@ -171,12 +172,13 @@ ShowapiSDK构造方法
 | Param | Type | Description |
 | --- | --- | --- |
 | name | <code>String</code> |  |
-| filePath | <code>String</code> | 文件绝对路径 |
+| fileOrPath | <code>String</code> | 文件绝对路径或者文件对象（浏览器端只能使用文件对象） |
 
 <a name="ShowapiSDK+addBase64Para"></a>
 
 ### showapiSDK.addBase64Para(name, filePath) ⇒
 添加一个base64参数，每次post或者get后已添加参数会清空
+注意在浏览器端使用时只能使用上传input获取到文件后传入，不能使用文件路径作为参数。浏览器下无法使用fs包
 
 **Kind**: instance method of [<code>ShowapiSDK</code>](#ShowapiSDK)  
 **Returns**: this  
@@ -184,7 +186,7 @@ ShowapiSDK构造方法
 | Param | Type | Description |
 | --- | --- | --- |
 | name | <code>String</code> |  |
-| filePath | <code>String</code> | 需要转为base64字符串的文件路径 |
+| fileOrPath | <code>String</code> | 需要转为base64字符串的文件路径或者原始文件对象（浏览器端只能使用文件对象）|
 
 <a name="ShowapiSDK+post"></a>
 
